@@ -62,21 +62,25 @@ int main() {
 }
 
 int findRoom(int persons[5]) {
-
   /*
   5개의 호실 중 빈방을 랜덤으로 찾음 (각 방마다 최대 2인) ->
   랜덤한 호실을 선택한 후, 해당 방의 인원이 2명 미만이라면 배정하고 리턴 ->
-  만약 모든 방이 가득 찬 경우, 무한 루프를 방지하기 위해 순차적으로 빈 방을 탐색
+  모든 방이 가득 찬 경우, -1을 반환하여 더 이상 배정할 수 없도록 함.
   */
 
-  int roomno;
+  int full = 1; 
   for (int i = 0; i < 5; i++) {
-    if (persons[i] < 2)
+    if (persons[i] < 2) {
+      full = 0;
       break;
-    if (i == 4)
-      return -1;
+    }
   }
 
+  if (full) {
+    return -1;
+  }
+
+  int roomno;
   while (1) {
     roomno = rand() % 5;
     if (persons[roomno] < 2) {
